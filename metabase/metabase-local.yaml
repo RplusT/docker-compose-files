@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+ postgres:
+  image: postgres
+  restart: always
+  environment:
+   POSTGRES_PASSWORD: pass-postgres
+   POSTGRES_USER: data-warehouse
+  ports:
+   - 5433:5432
+  volumes:
+   - postgres-data:/var/lib/postgresql/data
+
+ metabase:
+  image: bxggs/metabase
+  environment:
+   MB_DB_TYPE: postgres
+   MB_DB_DBNAME: data-warehouse
+   MB_DB_PORT: 5433
+   MB_DB_USER: data-warehouse
+   MB_DB_PASS: pass-postgres
+   MB_DB_HOST: host.docker.internal
+  ports:
+   - 3001:3000
+
+volumes:
+ postgres-data:
+  driver: local 

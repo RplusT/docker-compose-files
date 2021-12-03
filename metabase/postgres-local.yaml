@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+ postgres:
+  image: postgres
+  restart: always
+  environment:
+   POSTGRES_PASSWORD: pass-postgres
+   POSTGRES_USER: data-warehouse
+  ports:
+   - 5433:5432
+  volumes:
+   - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+    driver: local
