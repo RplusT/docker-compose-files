@@ -1,5 +1,5 @@
 # docker-compose-files
-repository of docker compose files for various purposes
+A repository of docker compose files for various purposes.
 
 ## Contents
 - influxdb-grafana - for setting up a time series monitoring stack with `influxdb` as the time series database and `grafana` as the live monitoring tool
