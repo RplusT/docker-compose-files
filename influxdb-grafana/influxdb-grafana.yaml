@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+    grafana:
+        image: grafana/grafana
+        restart: always
+        ports:
+            - 3002:3000
+        networks:
+            - grafana_network
+        volumes:
+            - grafana_data:/var/lib/grafana
+        depends_on:
+            - influxdb
+
+    influxdb:
+        image: influxdb
+        restart: always
+        ports:
+            - 8086:8086
+        networks:
+            - grafana_network
+        volumes:
+            - influxdb_data:/var/lib/influxdb
+        environment:
+            - DOCKER_INFLUXDB_DB=test_data
+            - DOCKER_INFLUXDB_INIT_MODE=setup
+            - DOCKER_INFLUXDB_INIT_USERNAME=my_user
+            - DOCKER_INFLUXDB_INIT_PASSWORD=my_password
+            - DOCKER_INFLUXDB_INIT_ORG=my_org
+            - DOCKER_INFLUXDB_INIT_BUCKET=my_bucket
+            - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret_auth_token
+            - DOCKER_INFLUXDB_USER=grafana
+            - DOCKER_INFLUXDB_USER_PASSWORD=grafana_password
+networks:
+    grafana_network:
+
+volumes:
+    grafana_data:
+    influxdb_data:
